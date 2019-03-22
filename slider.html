@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Слайдер</title>
+</head>
+<body>
+    <img id="slider">
+    <script>
+      const img = document.getElementById('slider');
+        setInterval(() => {
+          img.src = 'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-jump.png?raw=true';
+        }, 1000);
+        setInterval(() => {
+          img.src = 'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-on-foot.png?raw=true';
+        }, 2000);
+    </script>
+</body>
+</html>
