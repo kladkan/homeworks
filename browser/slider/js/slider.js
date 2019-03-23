@@ -1,3 +1,4 @@
+'use strict';
 const img = document.getElementById('slider');
 const resource = [
   'i/airmax-jump.png',
