@@ -7,15 +7,26 @@
     <title>Слайдер</title>
 </head>
 <body>
-    <img id="slider">
+    <img src="https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/spinner.gif?raw=true" alt="" id="slider">
     <script>
       const img = document.getElementById('slider');
-        setInterval(() => {
-          img.src = 'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-jump.png?raw=true';
-        }, 1000);
-        setInterval(() => {
-          img.src = 'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-on-foot.png?raw=true';
-        }, 2000);
+      const resource = [
+        'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-jump.png?raw=true',
+        'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-on-foot.png?raw=true',
+        'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-playground.png?raw=true',
+        'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax-top-view.png?raw=true',
+        'https://github.com/kladkan/hj-homeworks/blob/master/browser/slider/i/airmax.png?raw=true'
+      ];
+      
+      let i = 0;
+      setInterval(() => {
+        if (i === resource.length) {
+          i = 0;
+          img.src = resource[i++];
+        } else {
+          img.src = resource[i++];
+        }
+      }, 5000);
     </script>
 </body>
 </html>
