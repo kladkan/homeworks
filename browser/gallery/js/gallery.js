@@ -17,6 +17,7 @@ function nextPhFunc() {
   } else {
     galleryImg.src = resource[next++];
   };
+  prev = next-2;
 };
 const nextPhoto = document.getElementById('nextPhoto');
 nextPhoto.onclick = nextPhFunc;
@@ -29,6 +30,7 @@ function prevPhFunc() {
   } else {
     galleryImg.src = resource[prev--];
   };
+  next = prev + 2;
 };
 const prevPhoto = document.getElementById('prevPhoto');
 prevPhoto.onclick = prevPhFunc;
