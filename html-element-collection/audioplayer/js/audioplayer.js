@@ -15,21 +15,22 @@ const audioSrc = [
 ];
 
 const player = document.getElementsByTagName('audio')[0];
-
 const playstateButton = document.getElementsByClassName('playstate')[0];
+const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
 playstateButton.onclick = function () {
   const method = player.classList.contains('is-playing') ? 'pause' : 'play';
   player.classList.toggle('is-playing');
-  playstateButton.classList.toggle('playstate');
-  playstateButton.classList.toggle(method);
-	console.log(playstateButton.classList.toggle(method));
+  mediaplayer.classList.toggle('play');
   player[method]();
+
 }
-/*
+
 const stopButton = document.getElementsByClassName('stop')[0];
 stopButton.onclick = function () {
-  playstateButton.classList.toggle('playstate');
+  if (player.classList.contains('is-playing')) {
+    player.classList.toggle('is-playing');
+    mediaplayer.classList.toggle('play');   
+  }
   player.pause();
   player.currentTime = 0;
 }
-*/
