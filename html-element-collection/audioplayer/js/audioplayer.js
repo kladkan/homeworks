@@ -34,3 +34,32 @@ stopButton.onclick = function () {
   player.pause();
   player.currentTime = 0;
 }
+
+let next = 0;
+function nextAudio() {
+  if (next === audioSrc.length) {
+    next = 0;
+    player.src = audioSrc[next++];
+    //title.title = player.src;
+  } else {
+    player.src = audioSrc[next++];
+  };
+  prev = next-2;
+};
+const nextButton = document.getElementsByClassName('next')[0];
+nextButton.onclick = nextAudio;
+
+let prev = 0;
+function prevAudio() {
+  if (prev < 0) {
+    prev = audioSrc.length - 1;
+    player.src = audioSrc[prev--];
+  } else {
+    player.src = audioSrc[prev--];
+  };
+  next = prev + 2;
+};
+const backButton = document.getElementsByClassName('back')[0];
+backButton.onclick = prevAudio;
+
+const title = document.getElementsByClassName('title')[0];
