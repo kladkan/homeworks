@@ -62,4 +62,5 @@ function prevAudio() {
 const backButton = document.getElementsByClassName('back')[0];
 backButton.onclick = prevAudio;
 
+//получение объекта узла с название трека
 const title = document.getElementsByClassName('title')[0];
