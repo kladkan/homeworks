@@ -37,16 +37,15 @@ function stop() {
 stopButton.onclick = stop;
 
 player.src = audioSrc[0];
-
 let next = 0;
 function nextAudio() {
   function nextSrc() {
-    if (next === audioSrc.length) {
-      next = 0;
+    if (next + 1 === audioSrc.length) {
+      next = -1;
     };
-    player.src = audioSrc[next++];
+    player.src = audioSrc[++next];
     title.title = getAudioFileName(player.src);
-    prev = next-2;
+    prev = next;
   }
   if (mediaplayer.classList.contains('play')) {
     stop();
@@ -62,12 +61,12 @@ nextButton.onclick = nextAudio;
 let prev = 0;
 function prevAudio() {
   function prevSrc() {
-	  if (prev < 0) {
-      prev = audioSrc.length - 1;
+	  if (prev - 1 < 0) {
+      prev = audioSrc.length;
 	  };
-    player.src = audioSrc[prev--];
+    player.src = audioSrc[--prev];
 	  title.title = getAudioFileName(player.src);
-	  next = prev + 2;
+	  next = prev;
   }
   if (mediaplayer.classList.contains('play')) {
     stop();
