@@ -15,13 +15,13 @@ const audioSrc = [
 
 const player = document.getElementsByTagName('audio')[0];
 const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
-
 const playstateButton = document.getElementsByClassName('playstate')[0];
+
+player.src = audioSrc[0];
 function playPause() {
   title.title = getAudioFileName(player.src);
   const method = mediaplayer.classList.contains('play') ? 'pause' : 'play';
   mediaplayer.classList.toggle('play');
-  //player.src = audioSrc[next];
   player[method]();
 }
 playstateButton.onclick = playPause;
@@ -36,7 +36,7 @@ function stop() {
 }
 stopButton.onclick = stop;
 
-player.src = audioSrc[0];
+
 let next = 0;
 function nextAudio() {
   function nextSrc() {
