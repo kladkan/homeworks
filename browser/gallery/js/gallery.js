@@ -8,29 +8,29 @@ const resource = [
 ];
 
 const galleryImg = document.getElementById('currentPhoto');
-
+galleryImg.src = resource[0];
 let next = 0;
 function nextPhFunc() {
-  if (next === resource.length) {
-    next = 0;
-    galleryImg.src = resource[next++];
+  if (next + 1 === resource.length) {
+    next = -1;
+    galleryImg.src = resource[++next];
   } else {
-    galleryImg.src = resource[next++];
+    galleryImg.src = resource[++next];
   };
-  prev = next-2;
+  prev = next;
 };
 const nextPhoto = document.getElementById('nextPhoto');
 nextPhoto.onclick = nextPhFunc;
 
 let prev = 0;
 function prevPhFunc() {
-  if (prev < 0) {
-    prev = resource.length - 1;
-    galleryImg.src = resource[prev--];
+  if (prev - 1 < 0) {
+    prev = resource.length;
+    galleryImg.src = resource[--prev];
   } else {
-    galleryImg.src = resource[prev--];
+    galleryImg.src = resource[--prev];
   };
-  next = prev + 2;
+  next = prev;
 };
 const prevPhoto = document.getElementById('prevPhoto');
 prevPhoto.onclick = prevPhFunc;
