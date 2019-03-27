@@ -15,18 +15,30 @@ const audioSrc = [
 
 const player = document.getElementsByTagName('audio')[0];
 const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
+
 const playstateButton = document.getElementsByClassName('playstate')[0];
+playstateButton.onclick = playPause;
+
+const stopButton = document.getElementsByClassName('stop')[0];
+stopButton.onclick = stop;
+
+const nextButton = document.getElementsByClassName('next')[0];
+nextButton.onclick = nextAudio;
+
+const backButton = document.getElementsByClassName('back')[0];
+backButton.onclick = prevAudio;
+
+const title = document.getElementsByClassName('title')[0];
 
 player.src = audioSrc[0];
+
 function playPause() {
   title.title = getAudioFileName(player.src);
   const method = mediaplayer.classList.contains('play') ? 'pause' : 'play';
   mediaplayer.classList.toggle('play');
   player[method]();
 }
-playstateButton.onclick = playPause;
 
-const stopButton = document.getElementsByClassName('stop')[0];
 function stop() {
   if (mediaplayer.classList.contains('play')) {
     mediaplayer.classList.toggle('play');   
@@ -34,8 +46,6 @@ function stop() {
   player.pause();
   player.currentTime = 0;
 }
-stopButton.onclick = stop;
-
 
 let next = 0;
 function nextAudio() {
@@ -55,8 +65,6 @@ function nextAudio() {
     nextSrc();
   }
 };
-const nextButton = document.getElementsByClassName('next')[0];
-nextButton.onclick = nextAudio;
 
 let prev = 0;
 function prevAudio() {
@@ -76,10 +84,6 @@ function prevAudio() {
 	  prevSrc();
   }
 };
-const backButton = document.getElementsByClassName('back')[0];
-backButton.onclick = prevAudio;
-
-const title = document.getElementsByClassName('title')[0];
 
 function getAudioFileName(link) {
   let fileName = link.split('/').pop();
