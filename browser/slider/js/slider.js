@@ -7,8 +7,8 @@ const resource = [
   'i/airmax-top-view.png',
   'i/airmax.png'
 ];
-        
-let i = 0;
+img.src = resource[0];        
+let i = 1;
 setInterval(() => {
   if (i === resource.length) {
     i = 0;
