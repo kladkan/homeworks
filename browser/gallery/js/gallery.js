@@ -13,10 +13,8 @@ let next = 0;
 function nextPhFunc() {
   if (next + 1 === resource.length) {
     next = -1;
-    galleryImg.src = resource[++next];
-  } else {
-    galleryImg.src = resource[++next];
-  };
+  }
+  galleryImg.src = resource[++next];
   prev = next;
 };
 const nextPhoto = document.getElementById('nextPhoto');
@@ -26,10 +24,8 @@ let prev = 0;
 function prevPhFunc() {
   if (prev - 1 < 0) {
     prev = resource.length;
-    galleryImg.src = resource[--prev];
-  } else {
-    galleryImg.src = resource[--prev];
-  };
+  }
+  galleryImg.src = resource[--prev];
   next = prev;
 };
 const prevPhoto = document.getElementById('prevPhoto');
