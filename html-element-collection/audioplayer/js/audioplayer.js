@@ -15,6 +15,9 @@ const audioSrc = [
 
 const player = document.getElementsByTagName('audio')[0];
 const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
+player.onended = function () {
+  mediaplayer.classList.toggle('play');
+};
 
 const playstateButton = document.getElementsByClassName('playstate')[0];
 playstateButton.onclick = playPause;
