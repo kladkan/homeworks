@@ -23,7 +23,6 @@ const higherList = [
 ];
 
 const piano = document.getElementsByClassName('set')[0];
-
 const pianoKeys = Array.from(piano.getElementsByTagName('li'));
 
 function player(event, i) {
@@ -42,7 +41,6 @@ for (let i = 0; i < pianoKeys.length; i++) {
 	pianoKeys[i].addEventListener('click', function () {
 		player(event, i)
   });
-  
 }
 
 document.addEventListener('keydown', lowerMode);
@@ -51,12 +49,10 @@ function lowerMode(event) {
     piano.classList.remove('middle');
 		piano.classList.add('lower');
   };
-  
   if (event.altKey) {
     piano.classList.remove('middle');
 		piano.classList.add('higher');
-  }
-  
+  };
 }
 
 document.addEventListener('keyup', middleMode);
