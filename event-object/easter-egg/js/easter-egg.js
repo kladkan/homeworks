@@ -1,15 +1,7 @@
 const secretNav = document.getElementsByTagName('nav')[0];
 
 function showNav(event) {
-  if (!event.ctrlKey) {
-    return;
-  }
-
-  if (!event.altKey) {
-    return;
-  }
-
-  if (event.code === 'KeyT') {
+  if (event.ctrlKey && event.altKey && event.code === 'KeyT') {
     secretNav.classList.toggle('visible');
   }
 }
@@ -30,7 +22,7 @@ const secretWord = [
   'KeyU',
   'KeyB',
   'KeyZ'
-]
+];
 
 let secretWordLength = 0;
 
