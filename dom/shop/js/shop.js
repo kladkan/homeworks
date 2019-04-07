@@ -10,8 +10,8 @@ for (const addButton of addButtons) {
 
 let count = 0;
 let totalPrice = 0;
-function addProduct() {
+function addProduct(event) {
   cardCount.innerHTML = ++count;
-  totalPrice = totalPrice + Number(this.dataset.price);
+  totalPrice = totalPrice + Number(event.currentTarget.dataset.price);
   cartTotalPrice.innerHTML = getPriceFormatted(totalPrice);
 };
