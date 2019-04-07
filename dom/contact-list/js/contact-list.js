@@ -1,7 +1,5 @@
 const contacts = JSON.parse(loadContacts());
-
 const contactsList = document.querySelector('.contacts-list');
-
 const contactsArray = [];
 
 contacts.forEach(contact => {
