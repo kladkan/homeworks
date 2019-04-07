@@ -1,2 +1,2 @@
 // Инициализация функционала модального окна
-setTimeout(initModalUi, 2000);
+document.addEventListener('DOMContentLoaded', initModalUi)
