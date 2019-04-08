@@ -1,11 +1,12 @@
+'use strict'
 const content = document.querySelector('#content');
 const loader = document.querySelector('#loader');
-const currencyRates = new XMLHttpRequest();
 const source = document.querySelector('#source');
 const fromList = document.querySelector('#from');
 const toList = document.querySelector('#to');
 const result = document.querySelector('#result');
 
+const currencyRates = new XMLHttpRequest();
 currencyRates.addEventListener("loadstart", onLoadStart);
 currencyRates.addEventListener('load', onLoad);
 currencyRates.addEventListener('error', onError);
@@ -49,12 +50,6 @@ function setOptions(rates) {
 }
 
 function converter() {
-  const fromListOption = Array.from(fromList.querySelectorAll('option'));
-  fromListOptionValue = fromListOption.find((element) => element.selected === true).value;
-
-  const toListOption = Array.from(toList.querySelectorAll('option'));
-  toListOptionValue = toListOption.find((element) => element.selected === true).value;
-
-  culcResult = toListOptionValue / fromListOptionValue * source.value;
+  const culcResult = toList.value / fromList.value * source.value;
   result.innerHTML = parseFloat(culcResult.toFixed(2));
 }
