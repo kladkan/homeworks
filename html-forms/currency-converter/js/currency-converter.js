@@ -51,5 +51,5 @@ function setOptions(rates) {
 
 function converter() {
   const culcResult = toList.value / fromList.value * source.value;
-  result.innerHTML = parseFloat(culcResult.toFixed(2));
+  result.innerHTML = culcResult.toFixed(2);
 }
