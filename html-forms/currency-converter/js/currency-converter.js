@@ -52,4 +52,5 @@ function setOptions(rates) {
 function converter() {
   const culcResult = toList.value / fromList.value * source.value;
   result.innerHTML = culcResult.toFixed(2);
+  //culcResult.toFixed(2)
 }
