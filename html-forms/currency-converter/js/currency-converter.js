@@ -50,7 +50,8 @@ function setOptions(rates) {
 }
 
 function converter() {
-  const culcResult = toList.value / fromList.value * source.value;
+  const culcResult = fromList.value / toList.value * source.value;
   result.innerHTML = culcResult.toFixed(2);
   //culcResult.toFixed(2)
+  //(Math.round(culcResult * 100) / 100).toFixed(2);
 }
