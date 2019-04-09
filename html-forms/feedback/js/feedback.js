@@ -1,44 +1,61 @@
 'use strict'
 const contentform = document.querySelector('.contentform');
+contentform.addEventListener('submit', showMessage);
 //console.log(contentform);
 
 const sendButton = document.querySelector('.contentform > .button-contact');
 sendButton.classList.add('hidden');
+
 //console.log(sendButton);
 
 const messageWindow = document.querySelector('#output');
 //console.log(messageWindow);
 
+
 const changeButton = document.querySelector('#output > .button-contact');
+changeButton.addEventListener('click', changeForm);
 //console.log(changeButton);
 
 const zipField = document.querySelector('input[name="zip"]');
 //console.log(zipField);
 
-//zipField.addEventListener('keyup', checkZip);
+const textareaText = document.querySelector('textarea');
+textareaText.addEventListener('input', checkFields);
+
 function checkZip() {
   const regular = /^\d{6}$/;
   if (regular.test(zipField.value)) {
-    console.log(`индекс ${zipField.value} правильный`);
     return true;
   }
 }
 
 const inputFields = document.querySelectorAll('input');
-console.log(inputFields);
 for (const inputField of inputFields) {
   inputField.addEventListener('input', checkFields);
 }
-function checkFields() {
+function checkFields(event) {
+  if (document.getElementById(`${event.currentTarget.name}`)) {
+    document.getElementById(`${event.currentTarget.name}`).innerHTML = event.currentTarget.value;
+  };
   const checkInputFields = Array.from(inputFields).filter(field => field.value === '');
-  if (checkInputFields.length === 0 && checkZip() === true) {
+  if (checkInputFields.length === 0 && checkZip() === true && textareaText.value !== '') {
     sendButton.classList.remove('hidden');
+    sendButton.disabled = false;
   } else {
     sendButton.classList.add('hidden');
   }
 }
 
+function showMessage(event) {
+  event.preventDefault();
+  messageWindow.classList.remove('hidden');
+  contentform.classList.add('hidden');
+}
 
+function changeForm() {
+  messageWindow.classList.add('hidden');
+  contentform.classList.remove('hidden');
+}
 
 
 /*
