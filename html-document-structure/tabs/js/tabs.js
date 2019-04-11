@@ -1,9 +1,7 @@
 'use strict'
 const tabs = document.getElementById('tabs');
 const tabsContent = tabs.querySelector('.tabs-content');
-
 const articles = Array.from(tabsContent.children);
-
 let tabsNavLi = tabs.querySelector('.tabs-nav > li');
 
 articles.forEach(article => {
@@ -14,7 +12,6 @@ articles.forEach(article => {
 tabsNavLi.parentElement.removeChild(tabsNavLi);
 
 tabsNavLi = Array.from(tabs.querySelectorAll('.tabs-nav > li'));
-console.log(tabsNavLi);
 
 for (let i = 0; i < tabsNavLi.length; i++) {
   tabsNavLi[i].firstElementChild.textContent = articles[i].dataset.tabTitle;
@@ -28,8 +25,6 @@ function showArticle(event) {
   const getCurrentTab = tabs.querySelector('.ui-tabs-active');
   getCurrentTab.classList.remove('ui-tabs-active');
   event.target.parentElement.classList.add('ui-tabs-active');
-  console.log(getCurrentTab);
-  console.log(event.target.classList[1]);
   const getCurrentArticle = tabsContent.querySelector(`[data-tab-icon="${getCurrentTab.firstElementChild.classList[1]}"]`);
   getCurrentArticle.classList.add('hidden');
   const activeArticle = tabsContent.querySelector(`[data-tab-icon="${event.target.classList[1]}"]`);
