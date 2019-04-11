@@ -1,52 +1,37 @@
 'use strict'
-const tabsContent = document.querySelector('.tabs-content');
-console.log(tabsContent);
+const tabs = document.getElementById('tabs');
+const tabsContent = tabs.querySelector('.tabs-content');
 
 const articles = Array.from(tabsContent.children);
-console.log(articles);
 
-const tabsNavLi = document.querySelector('.tabs-nav > li');
-console.log(tabsNavLi);
+let tabsNavLi = tabs.querySelector('.tabs-nav > li');
 
 articles.forEach(article => {
   article.classList.add('hidden');
   const newLi = tabsNavLi.cloneNode(true);
-  tabsNavLi.parentElement.insertBefore(newLi, tabsNavLi);
-  console.log(newLi);
+  tabsNavLi.parentElement.appendChild(newLi);
 })
+tabsNavLi.parentElement.removeChild(tabsNavLi);
 
-tabsContent.firstElementChild.classList.remove('hidden');
+tabsNavLi = Array.from(tabs.querySelectorAll('.tabs-nav > li'));
+console.log(tabsNavLi);
 
+for (let i = 0; i < tabsNavLi.length; i++) {
+  tabsNavLi[i].firstElementChild.textContent = articles[i].dataset.tabTitle;
+  tabsNavLi[i].firstElementChild.classList.add(`${articles[i].dataset.tabIcon}`);
+  tabsNavLi[i].addEventListener('click', showArticle);
+}
+articles[0].classList.remove('hidden');
+tabsNavLi[0].classList.add('ui-tabs-active');
 
-
-
-
-/*
-
-let tabsNav = document.querySelector('.tabs-nav');
-console.log(tabsNav);
-
-articles.forEach(article => {
-
-  //tabsNav.firstElementChild.classList.add(`${article.getAttribute('data-tab-icon')}`).textContent = article.getAttribute('data-tab-title');
-  //tabsNav.textContent = article.getAttribute('data-tab-title');
-  const newLi = tabsNav.firstElementChild.cloneNode(true);
-  //document.querySelector('.tabs-nav').insertBefore(newLi, tabsNav);
-  tabsNav.appendChild(newLi);
-  console.log(newLi);
-});
-
-*/
-
-
-
-
-/*
-Метод parentElement.insertBefore(newNode,
-referenceNode) добавляет newNode внутри parentElement ,
-перед referenceNode .
-Если referenceNode равен null ,то узел добавится последним, как и
-в случае с appendChild .
-
-*/
-
+function showArticle(event) {
+  const getCurrentTab = tabs.querySelector('.ui-tabs-active');
+  getCurrentTab.classList.remove('ui-tabs-active');
+  event.target.parentElement.classList.add('ui-tabs-active');
+  console.log(getCurrentTab);
+  console.log(event.target.classList[1]);
+  const getCurrentArticle = tabsContent.querySelector(`[data-tab-icon="${getCurrentTab.firstElementChild.classList[1]}"]`);
+  getCurrentArticle.classList.add('hidden');
+  const activeArticle = tabsContent.querySelector(`[data-tab-icon="${event.target.classList[1]}"]`);
+  activeArticle.classList.remove('hidden');
+}
