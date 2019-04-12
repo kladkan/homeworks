@@ -3,7 +3,6 @@
 function handleTableClick(event) {
 
   if (event.target.tagName === 'TH') {
-    console.log(event.target.tagName);
     if (event.target.dataset.dir) {
       event.target.dataset.dir = event.target.dataset.dir * (-1);
     } else {
