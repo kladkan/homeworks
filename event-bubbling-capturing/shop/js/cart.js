@@ -3,8 +3,11 @@
 list.addEventListener('click', addItem);
 
 function addItem(event) {
-  const itemObj = new Object();
-  itemObj.title = event.target.dataset.title;
-  itemObj.price = event.target.dataset.price;
-  addToCart(itemObj);
+  if (event.target.classList.contains('add-to-cart')) {
+    event.preventDefault();
+    addToCart({
+      title: event.target.dataset.title,
+      price: event.target.dataset.price
+    });
+  };
 }
