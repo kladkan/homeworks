@@ -2,14 +2,10 @@
 
 function handleTableClick(event) {
 
-  if (event.target.tagName === 'TH') {
-    if (event.target.dataset.dir) {
-      event.target.dataset.dir = event.target.dataset.dir * (-1);
-    } else {
-      Array.from(document.querySelectorAll('th')).forEach(element => element.dataset.dir = '');
-      event.target.dataset.dir = 1;
-    };
-    document.querySelector('table').dataset.sortBy = event.target.dataset.propName;
+  if (event.target.tagName.toLowerCase() === 'th') {
+    event.target.dataset.dir = event.target.dataset.dir === '1' ? '-1' : '1';
+    console.log(event.target);
+    event.currentTarget.dataset.sortBy = event.target.dataset.propName;
     sortTable(event.target.dataset.propName, event.target.dataset.dir);
   }
 }
