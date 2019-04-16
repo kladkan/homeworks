@@ -8,19 +8,16 @@ const loginWrap = document.querySelector('.login-wrap');
 loginWrap.addEventListener('click', formsAction);
 
 function formsAction(event) {
-  //event.preventDefault();
   if (event.target.value === 'Войти') {
-    const signInFormData = new FormData(signInForm); //вместо signInForm можно попробовать написать ролителя текущего тега
+    const signInFormData = new FormData(signInForm);
     const xhr = new XMLHttpRequest()
+
     xhr.addEventListener('load', (e) => {
-      try {
-        console.log('Всё круто');
-        alert(xhr.response);
-      } catch(error) {
-        console.log('Какая-то ошибка');
-        alert(error);
-      }
-      
+      console.log(xhr.responseText);
+      event.target.parentElement.nextElementSibling.textContent = 'Пользователь Иван успешно авторизован';
+    });
+    xhr.addEventListener('error', (e) => {
+      console.log(xhr.responseText);
     });
     xhr.open('POST', 'https://neto-api.herokuapp.com/signin');
     xhr.setRequestHeader('Content-Type', 'application/json');
