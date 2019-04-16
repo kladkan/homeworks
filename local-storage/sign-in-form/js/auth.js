@@ -31,6 +31,7 @@ function formsAction(event) {
     xhrSignUp.send(JSON.stringify(signUpFormData));
 
     xhrSignUp.addEventListener('load', (e) => {
+      console.log(xhrSignUp);
       event.target.parentElement.nextElementSibling.textContent = JSON.parse(xhrSignUp.responseText).error ? JSON.parse(xhrSignUp.responseText).message : `Пользователь ${JSON.parse(xhrSignUp.responseText).name} успешно зарегистрирован`;
     });
   };
