@@ -37,7 +37,6 @@ xhrSizes.addEventListener('load', setSizes);
 
 function setSizes() {
   const sizes = JSON.parse(xhrSizes.responseText);
-  console.log(sizes);
   for (const size of sizes) {
     const sizeAvailable = size.isAvailable ? 'available' : 'soldout';
     const sizeDisabled = size.isAvailable ? '' : 'disabled';
@@ -54,4 +53,16 @@ function setSizes() {
   }
   
   sizeSwatch.querySelector('.available').firstElementChild.checked = true;
+}
+
+const quickCart = document.querySelector('#quick-cart');
+const xhrCart = new XMLHttpRequest();
+
+xhrCart.open('GET', 'https://neto-api.herokuapp.com/cart', true);
+xhrCart.send();
+xhrCart.addEventListener('load', setCart);
+
+function setCart() {
+  const items = JSON.parse(xhrCart.responseText);
+  console.log(items);
 }
