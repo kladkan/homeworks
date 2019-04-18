@@ -8,7 +8,6 @@ const sendButton = document.querySelector('.contentform > .button-contact');
 const messageWindow = document.querySelector('#output');
 //console.log(messageWindow);
 
-
 const changeButton = document.querySelector('#output > .button-contact');
 changeButton.addEventListener('click', changeForm);
 //console.log(changeButton);
@@ -17,12 +16,10 @@ const zipField = document.querySelector('input[name="zip"]');
 zipField.addEventListener('input', checkZip);
 //console.log(zipField);
 
-
 const textareaText = document.querySelector('textarea');
 textareaText.addEventListener('input', checkFields);
 
-
-function checkZip() {
+function checkZip(event) {
   const regular = /^\d{6}$/;
   if (regular.test(zipField.value)) {
     sendButton.innerHTML = 'Отправить сообщение';
