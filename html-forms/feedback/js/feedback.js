@@ -4,9 +4,6 @@ contentform.addEventListener('submit', showMessage);
 //console.log(contentform);
 
 const sendButton = document.querySelector('.contentform > .button-contact');
-sendButton.classList.add('hidden');
-
-//console.log(sendButton);
 
 const messageWindow = document.querySelector('#output');
 //console.log(messageWindow);
@@ -17,15 +14,21 @@ changeButton.addEventListener('click', changeForm);
 //console.log(changeButton);
 
 const zipField = document.querySelector('input[name="zip"]');
+zipField.addEventListener('input', checkZip);
 //console.log(zipField);
+
 
 const textareaText = document.querySelector('textarea');
 textareaText.addEventListener('input', checkFields);
 
+
 function checkZip() {
   const regular = /^\d{6}$/;
   if (regular.test(zipField.value)) {
+    sendButton.innerHTML = 'Отправить сообщение';
     return true;
+  } else {
+    sendButton.innerHTML = 'почтовый индекс должен состоять из 6 цифр без лишних символов';
   }
 }
 
@@ -39,10 +42,10 @@ function checkFields(event) {
   };
   const checkInputFields = Array.from(inputFields).filter(field => field.value === '');
   if (checkInputFields.length === 0 && checkZip() === true && textareaText.value !== '') {
-    sendButton.classList.remove('hidden');
+    sendButton.innerHTML = 'Отправить сообщение';
     sendButton.disabled = false;
   } else {
-    sendButton.classList.add('hidden');
+    sendButton.disabled = true;
   }
 }
 
@@ -56,39 +59,3 @@ function changeForm() {
   messageWindow.classList.add('hidden');
   contentform.classList.remove('hidden');
 }
-
-
-/*
-const formFields = document.querySelectorAll('.form-group');
-console.log(formFields);
-
-for (const formField of formFields) {
-  formField.addEventListener('input', checkFields);
-}
-
-function checkFields(event) {
-  const inputText = event.currentTarget.querySelector('input');
-  if (inputText) {
-    checkField(inputText);
-  }
-  const textareaText = event.currentTarget.querySelector('textarea');
-  if (textareaText) {
-    checkField(textareaText);
-  }
-
-  function checkField(fieldText) {
-    if (fieldText.value) {
-      console.log('значение поля не пустое');
-      spanMarker();
-    } else {
-      console.log('значение поля пустое');
-      spanMarker('*');
-    }
-  }
-
-  function spanMarker(marker = '') {
-    event.currentTarget.querySelector('span').innerHTML = `${marker}`;
-  }
-}
-
-*/
