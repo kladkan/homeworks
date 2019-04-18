@@ -13,7 +13,7 @@ function check() {
     if (inp.checked) {
       total.push('ok');
     };
-    totalOutput.innerHTML = total.length;
+    totalOutput.innerHTML = `${total.length} из ${inputs.length}`;
   };
   if (total.length === inputs.length) {
     listBlock.classList.add('complete');
