@@ -122,7 +122,7 @@ function addToCart(event) {
 quickCart.addEventListener('click', removeItem);
 function removeItem(event) {
   if (event.target.classList.contains('remove')) {
-    console.log(event.target);
+
     const removableItemFormData = new FormData();
     removableItemFormData.append('productId', event.target.dataset.id);
 
@@ -130,12 +130,12 @@ function removeItem(event) {
     xhrRemoveItem.open('POST', 'https://neto-api.herokuapp.com/cart/remove');
     xhrRemoveItem.send(removableItemFormData);
 
+    /*
     xhrRemoveItem.addEventListener('load', (e) => {
       const removedItem = JSON.parse(xhrRemoveItem.responseText);
-      console.log(removedItem);
       loadCart(removedItem);
 
-    });
+    });*/
   }
 
 }
