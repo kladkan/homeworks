@@ -23,8 +23,6 @@ Promise.all([
 
 ])
 
-
-
 function loadColors(colors) {
   const colorSwatch = document.querySelector('#colorSwatch');
   for (const color of colors) {
@@ -50,7 +48,7 @@ function loadColors(colors) {
     `;
   }
   if (!localStorage.color) {
-    colorSwatch.querySelector('.available').firstElementChild.nextElementSibling.currentColor = true;
+    colorSwatch.querySelector('.available').firstElementChild.nextElementSibling.checked = true;
   }
 }
 
@@ -78,7 +76,7 @@ function loadSizes(sizes) {
     `;
   }
   if (!localStorage.size) {
-    sizeSwatch.querySelector('.available').firstElementChild.currentColor = true;
+    sizeSwatch.querySelector('.available').firstElementChild.checked = true;
   }
 }
 
