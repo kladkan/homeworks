@@ -133,6 +133,8 @@ function addToCart(event) {
   xhrAddToCard.send(addToCartFormData);
   xhrAddToCard.addEventListener('load', (e) => {
     const addedItem = JSON.parse(xhrAddToCard.responseText);
+    console.log(addedItem);
+    loadCart(addedItem);
   });
 }
 
