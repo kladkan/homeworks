@@ -64,11 +64,12 @@ const quickCart = document.querySelector('#quick-cart');
 
 function loadCart(items) {
   //console.log(items);
+  quickCart.innerHTML = '';
   let finalSum = 0;
   for (const item of items) {
     console.log(item);
     finalSum = finalSum + item.price * item.quantity;
-    quickCart.innerHTML = `
+    quickCart.innerHTML = quickCart.innerHTML + `
       <div class="quick-cart-product quick-cart-product-static" id="quick-cart-product-${item.productId}" style="opacity: 1;">
         <div class="quick-cart-product-wrap">
           <img src="${item.pic}" title="${item.title}">
