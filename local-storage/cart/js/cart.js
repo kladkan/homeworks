@@ -63,7 +63,6 @@ function loadSizes(sizes) {
 const quickCart = document.querySelector('#quick-cart');
 
 function loadCart(items) {
-  console.log(items);
   for (const item of items) {
 
     quickCart.innerHTML = quickCart.innerHTML + `
@@ -90,33 +89,22 @@ function loadCart(items) {
 }
 
 
-//quickCart.addEventListener('click', cartAction); // пока нет повешанной функции
-
 const addToCartForm = document.querySelector('#AddToCartForm');
 addToCartForm.addEventListener('submit', addToCart);
 
 function addToCart(event) {
-  event.preventDefault();
-  //console.log(event);
+  //event.preventDefault();
 
   const addToCartFormData = new FormData(addToCartForm);
   addToCartFormData.append('productId', addToCartForm.dataset.productId);
-  /*
-    for (const [k, v] of addToCartFormData) {
-      console.log(k + ': ' + v);
-    }
-  */
+
   const xhrAddToCard = new XMLHttpRequest()
   xhrAddToCard.open('POST', 'https://neto-api.herokuapp.com/cart');
   xhrAddToCard.send(addToCartFormData);
-
   xhrAddToCard.addEventListener('load', (e) => {
     const addedItem = JSON.parse(xhrAddToCard.responseText);
-    console.log(addedItem);
-    loadCart(addedItem);
-
+    //loadCart(addedItem);
   });
-
 }
 
 quickCart.addEventListener('click', removeItem);
@@ -129,7 +117,7 @@ function removeItem(event) {
     const xhrRemoveItem = new XMLHttpRequest()
     xhrRemoveItem.open('POST', 'https://neto-api.herokuapp.com/cart/remove');
     xhrRemoveItem.send(removableItemFormData);
-
+    //loadCart();
     /*
     xhrRemoveItem.addEventListener('load', (e) => {
       const removedItem = JSON.parse(xhrRemoveItem.responseText);
