@@ -63,9 +63,12 @@ function loadSizes(sizes) {
 const quickCart = document.querySelector('#quick-cart');
 
 function loadCart(items) {
+  //console.log(items);
+  let finalSum = 0;
   for (const item of items) {
-
-    quickCart.innerHTML = quickCart.innerHTML + `
+    console.log(item);
+    finalSum = finalSum + item.price * item.quantity;
+    quickCart.innerHTML = `
       <div class="quick-cart-product quick-cart-product-static" id="quick-cart-product-${item.productId}" style="opacity: 1;">
         <div class="quick-cart-product-wrap">
           <img src="${item.pic}" title="${item.title}">
@@ -82,7 +85,7 @@ function loadCart(items) {
     <a id="quick-cart-pay" quickbeam="cart-pay" class="cart-ico open">
       <span>
         <strong class="quick-cart-text">Оформить заказ<br></strong>
-        <span id="quick-cart-price">$800.00</span>
+        <span id="quick-cart-price">$${finalSum}</span>
       </span>
     </a>
   `;
@@ -110,20 +113,18 @@ function addToCart(event) {
 quickCart.addEventListener('click', removeItem);
 function removeItem(event) {
   if (event.target.classList.contains('remove')) {
-
+    
     const removableItemFormData = new FormData();
     removableItemFormData.append('productId', event.target.dataset.id);
 
     const xhrRemoveItem = new XMLHttpRequest()
     xhrRemoveItem.open('POST', 'https://neto-api.herokuapp.com/cart/remove');
     xhrRemoveItem.send(removableItemFormData);
-    //loadCart();
-    /*
+        
     xhrRemoveItem.addEventListener('load', (e) => {
       const removedItem = JSON.parse(xhrRemoveItem.responseText);
-      loadCart(removedItem);
-
-    });*/
+      //console.log(removedItem);
+      return loadCart(removedItem);
+    });
   }
-
 }
