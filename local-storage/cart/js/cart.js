@@ -125,6 +125,7 @@ function updateLocalStorage(event) {
 }
 
 function addToCart(event) {
+  event.preventDefault();
   const addToCartFormData = new FormData(addToCartForm);
   addToCartFormData.append('productId', addToCartForm.dataset.productId);
 
@@ -133,7 +134,6 @@ function addToCart(event) {
   xhrAddToCard.send(addToCartFormData);
   xhrAddToCard.addEventListener('load', (e) => {
     const addedItem = JSON.parse(xhrAddToCard.responseText);
-    console.log(addedItem);
     loadCart(addedItem);
   });
 }
