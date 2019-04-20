@@ -23,15 +23,25 @@ Promise.all([
 
 ])
 
+
+
 function loadColors(colors) {
   const colorSwatch = document.querySelector('#colorSwatch');
   for (const color of colors) {
     const colorAvailable = color.isAvailable ? 'available' : 'soldout';
     const colorDisabled = color.isAvailable ? '' : 'disabled';
+
+    let currentColor;
+    if (localStorage.color && localStorage.color === color.type) {
+      currentColor = 'checked';
+    } else {
+      currentColor = '';
+    }
+
     colorSwatch.innerHTML = colorSwatch.innerHTML + `
       <div data-value="${color.type}" class="swatch-element color ${color.type} ${colorAvailable}">
         <div class="tooltip">${color.title}</div>
-        <input quickbeam="color" id="swatch-1-${color.type}" type="radio" name="color" value="${color.type}" ${colorDisabled}>
+        <input quickbeam="color" id="swatch-1-${color.type}" type="radio" name="color" value="${color.type}" ${colorDisabled} ${currentColor}>
         <label for="swatch-1-${color.type}" style="border-color: red;">
           <span style="background-color: ${color.code};"></span>
           <img class="crossed-out" src="https://neto-api.herokuapp.com/hj/3.3/cart/soldout.png?10994296540668815886">
@@ -39,7 +49,9 @@ function loadColors(colors) {
       </div>
     `;
   }
-  colorSwatch.querySelector('.available').firstElementChild.nextElementSibling.checked = true;
+  if (!localStorage.color) {
+    colorSwatch.querySelector('.available').firstElementChild.nextElementSibling.currentColor = true;
+  }
 }
 
 function loadSizes(sizes) {
@@ -47,9 +59,17 @@ function loadSizes(sizes) {
   for (const size of sizes) {
     const sizeAvailable = size.isAvailable ? 'available' : 'soldout';
     const sizeDisabled = size.isAvailable ? '' : 'disabled';
+
+    let currentSize;
+    if (localStorage.size && localStorage.size === size.type) {
+      currentSize = 'checked';
+    } else {
+      currentSize = '';
+    }
+
     sizeSwatch.innerHTML = sizeSwatch.innerHTML + `
       <div data-value="${size.type}" class="swatch-element plain ${size.type} ${sizeAvailable}">
-        <input id="swatch-0-${size.type}" type="radio" name="size" value="${size.type}" ${sizeDisabled}>
+        <input id="swatch-0-${size.type}" type="radio" name="size" value="${size.type}" ${sizeDisabled} ${currentSize}>
         <label for="swatch-0-${size.type}">
           ${size.title}
           <img class="crossed-out" src="https://neto-api.herokuapp.com/hj/3.3/cart/soldout.png?10994296540668815886">
@@ -57,7 +77,9 @@ function loadSizes(sizes) {
       </div>
     `;
   }
-  sizeSwatch.querySelector('.available').firstElementChild.checked = true;
+  if (!localStorage.size) {
+    sizeSwatch.querySelector('.available').firstElementChild.currentColor = true;
+  }
 }
 
 const quickCart = document.querySelector('#quick-cart');
@@ -67,7 +89,7 @@ function loadCart(items) {
   quickCart.innerHTML = '';
   let finalSum = 0;
   for (const item of items) {
-    console.log(item);
+    //console.log(item);
     finalSum = finalSum + item.price * item.quantity;
     quickCart.innerHTML = quickCart.innerHTML + `
       <div class="quick-cart-product quick-cart-product-static" id="quick-cart-product-${item.productId}" style="opacity: 1;">
@@ -92,13 +114,17 @@ function loadCart(items) {
   `;
 }
 
-
 const addToCartForm = document.querySelector('#AddToCartForm');
 addToCartForm.addEventListener('submit', addToCart);
 
-function addToCart(event) {
-  //event.preventDefault();
+addToCartForm.addEventListener('click', updateLocalStorage);
+function updateLocalStorage(event) {
+  if (event.target.type === 'radio') {
+    localStorage[event.target.name] = event.target.value;
+  }
+}
 
+function addToCart(event) {
   const addToCartFormData = new FormData(addToCartForm);
   addToCartFormData.append('productId', addToCartForm.dataset.productId);
 
@@ -107,25 +133,23 @@ function addToCart(event) {
   xhrAddToCard.send(addToCartFormData);
   xhrAddToCard.addEventListener('load', (e) => {
     const addedItem = JSON.parse(xhrAddToCard.responseText);
-    //loadCart(addedItem);
   });
 }
 
 quickCart.addEventListener('click', removeItem);
 function removeItem(event) {
   if (event.target.classList.contains('remove')) {
-    
+
     const removableItemFormData = new FormData();
     removableItemFormData.append('productId', event.target.dataset.id);
 
     const xhrRemoveItem = new XMLHttpRequest()
     xhrRemoveItem.open('POST', 'https://neto-api.herokuapp.com/cart/remove');
     xhrRemoveItem.send(removableItemFormData);
-        
+
     xhrRemoveItem.addEventListener('load', (e) => {
       const removedItem = JSON.parse(xhrRemoveItem.responseText);
-      //console.log(removedItem);
-      return loadCart(removedItem);
+      loadCart(removedItem);
     });
   }
 }
