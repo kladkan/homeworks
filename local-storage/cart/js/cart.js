@@ -14,14 +14,26 @@ function loadData(url, callback) {
     .then(res => res.json())
     .then(res => callback(res))
     .catch(error => console.log(error))
-}
+};
 
 Promise.all([
   loadData(url.color, loadColors),
   loadData(url.size, loadSizes),
   loadData(url.cart, loadCart)
 
-])
+]);
+
+function sendCart(url, data) {
+  return fetch(url, {
+    method: 'POST',
+    body: data
+  })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    })
+    .catch(error => console.log(error));
+}
 
 function loadColors(colors) {
   const colorSwatch = document.querySelector('#colorSwatch');
@@ -78,9 +90,7 @@ function loadSizes(sizes) {
   if (!localStorage.size) {
     sizeSwatch.querySelector('.available').firstElementChild.checked = true;
   }
-}
-
-const quickCart = document.querySelector('#quick-cart');
+};
 
 function loadCart(items) {
   //console.log(items);
@@ -101,7 +111,6 @@ function loadCart(items) {
       </div>
     `;
   }
-
   quickCart.innerHTML = quickCart.innerHTML + `
     <a id="quick-cart-pay" quickbeam="cart-pay" class="cart-ico open">
       <span>
@@ -110,46 +119,39 @@ function loadCart(items) {
       </span>
     </a>
   `;
-}
+};
 
+const quickCart = document.querySelector('#quick-cart');
+quickCart.addEventListener('click', removeItem);
 const addToCartForm = document.querySelector('#AddToCartForm');
 addToCartForm.addEventListener('submit', addToCart);
-
 addToCartForm.addEventListener('click', updateLocalStorage);
+
 function updateLocalStorage(event) {
   if (event.target.type === 'radio') {
     localStorage[event.target.name] = event.target.value;
   }
-}
+};
 
 function addToCart(event) {
   event.preventDefault();
   const addToCartFormData = new FormData(addToCartForm);
   addToCartFormData.append('productId', addToCartForm.dataset.productId);
 
-  const xhrAddToCard = new XMLHttpRequest()
-  xhrAddToCard.open('POST', 'https://neto-api.herokuapp.com/cart');
-  xhrAddToCard.send(addToCartFormData);
-  xhrAddToCard.addEventListener('load', (e) => {
-    const addedItem = JSON.parse(xhrAddToCard.responseText);
-    loadCart(addedItem);
-  });
-}
+  sendCart(url.cart, addToCartFormData)
+    .then(res => loadCart(res))
+    .catch(error => console.log(error));
 
-quickCart.addEventListener('click', removeItem);
+};
+
 function removeItem(event) {
   if (event.target.classList.contains('remove')) {
 
     const removableItemFormData = new FormData();
     removableItemFormData.append('productId', event.target.dataset.id);
 
-    const xhrRemoveItem = new XMLHttpRequest()
-    xhrRemoveItem.open('POST', 'https://neto-api.herokuapp.com/cart/remove');
-    xhrRemoveItem.send(removableItemFormData);
-
-    xhrRemoveItem.addEventListener('load', (e) => {
-      const removedItem = JSON.parse(xhrRemoveItem.responseText);
-      loadCart(removedItem);
-    });
+    sendCart(url.removeCart, removableItemFormData)
+      .then(res => loadCart(res))
+      .catch(error => console.log(error));
   }
-}
+};
