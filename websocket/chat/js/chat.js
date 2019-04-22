@@ -32,6 +32,5 @@ connection.addEventListener('message', event => {
     console.log('пришло сообщение');
     loading.lastElementChild.textContent = event.data;
     messagesContent.appendChild(loading.cloneNode(true));
-
   }
 });
