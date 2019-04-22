@@ -3,6 +3,7 @@
 const chat = document.querySelector('.chat');
 const chatStatus = chat.querySelector('.chat-status');
 const loading = chat.querySelector('.loading');
+const message = loading.nextElementSibling;
 const messageStatus = chat.querySelector('.message-status');
 const messForm = chat.querySelector('.message-box');
 const messageInput = messForm.querySelector('.message-input');
@@ -25,12 +26,13 @@ function changeMessStatus(message) {
 
 connection.addEventListener('message', event => {
   if (event.data === '...') {
-    console.log('печатает');
-    loading.lastElementChild.textContent = '...печатает сообщение';
     messagesContent.appendChild(loading.cloneNode(true));
   } else {
-    console.log('пришло сообщение');
-    loading.lastElementChild.textContent = event.data;
-    messagesContent.appendChild(loading.cloneNode(true));
+    message.querySelector('.message-text').textContent = event.data;
+    messagesContent.appendChild(message.cloneNode(true));
+    if (messagesContent.querySelector('.loading')) {
+      messagesContent.querySelector('.loading').parentNode.removeChild(messagesContent.querySelector('.loading'));
+    }
   }
 });
+
