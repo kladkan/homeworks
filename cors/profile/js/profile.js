@@ -10,7 +10,7 @@ const dataTechnologies = content.querySelector('[data-technologies]');
 
 function randName(max, min) {
   return `callback${Math.floor(Math.random() * (max - min)) + min}`;
-}
+};
 
 function loadData(url) {
   const functionName = randName(10, 1000);
@@ -22,7 +22,7 @@ function loadData(url) {
     script.src = `${url}?jsonp=${functionName}`;
     document.body.appendChild(script);
   });
-}
+};
 
 function showProfInfo(profInfo) {
   dataName.textContent = profInfo.name;
@@ -31,16 +31,16 @@ function showProfInfo(profInfo) {
   dataPosition.textContent = profInfo.position;
   const id = profInfo.id; // id тут = 90210 проверял
   return id;
-}
+};
 
 function showTech(technologies) {
   for (const technology of technologies) {
     dataTechnologies.innerHTML = dataTechnologies.innerHTML + `
     <span class="devicons devicons-${technology}"></span>
     `;
-  }
+  };
   content.style.display = 'initial';
-}
+};
 
 loadData('https://neto-api.herokuapp.com/profile/me')
   .then(showProfInfo)
