@@ -22,25 +22,25 @@ function loadData(url) {
     document.body.appendChild(script);
   });
 }
-let id;
+
 function showProfInfo(profInfo) {
   console.log(profInfo);
   dataName.textContent = profInfo.name;
   dataDescription.textContent = profInfo.description;
   dataPic.src = profInfo.pic;
   dataPosition.textContent = profInfo.position;
-  id = profInfo.id
+  const id = profInfo.id; // id тут = 90210 проверял
+  return id;
 }
 
 function showTech(technologies) {
-  console.log(technologies);
+  console.log(technologies); // для проверки тут ожидаемый массив
 }
 
 loadData('https://neto-api.herokuapp.com/profile/me')
   .then(showProfInfo)
-  .catch(error => console.log(error));
-
-console.log(id);
-loadData(`https://neto-api.herokuapp.com/profile/${id}/technologies`)
-  .then(showTech)
+  .then(res => {
+    loadData(`https://neto-api.herokuapp.com/profile/${res}/technologies`)
+      .then(showTech)
+  })
   .catch(error => console.log(error));
