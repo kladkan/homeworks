@@ -6,6 +6,7 @@ const dataName = profileinfo.querySelector('[data-name]');
 const dataDescription = profileinfo.querySelector('[data-description]');
 const dataPic = content.querySelector('[data-pic]');
 const dataPosition = profileinfo.querySelector('[data-position]');
+const dataTechnologies = content.querySelector('[data-technologies]');
 
 function randName(max, min) {
   return `callback${Math.floor(Math.random() * (max - min)) + min}`;
@@ -35,6 +36,12 @@ function showProfInfo(profInfo) {
 
 function showTech(technologies) {
   console.log(technologies); // для проверки тут ожидаемый массив
+  for (const technology of technologies) {
+    dataTechnologies.innerHTML = dataTechnologies.innerHTML + `
+    <span class="devicons devicons-${technology}"></span>
+    `;
+  }
+  content.style = 'display: initial;'
 }
 
 loadData('https://neto-api.herokuapp.com/profile/me')
