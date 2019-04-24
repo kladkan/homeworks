@@ -39,7 +39,7 @@ function showTech(technologies) {
     <span class="devicons devicons-${technology}"></span>
     `;
   }
-  content.style = 'display: initial;'
+  content.style.display = 'initial';
 }
 
 loadData('https://neto-api.herokuapp.com/profile/me')
