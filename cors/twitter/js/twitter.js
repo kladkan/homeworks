@@ -22,14 +22,15 @@ function loadData(url) {
 }
 
 function showData(twitterUser) {
-  console.log(twitterUser);
+  console.log('Проверка');
+
   /*
   const target = document.querySelector('.book');
   target.innerHTML = `Книга ${book.title}, автор ${book.author.name}`;
   */
 }
 
-loadData('https://neto-api.herokuapp.com/twitter/')
+loadData('https://neto-api.herokuapp.com/twitter/jsonp')
   .then(showData)
   .catch(error => console.log(error));
   
