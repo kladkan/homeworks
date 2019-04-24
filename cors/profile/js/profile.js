@@ -25,7 +25,6 @@ function loadData(url) {
 }
 
 function showProfInfo(profInfo) {
-  console.log(profInfo);
   dataName.textContent = profInfo.name;
   dataDescription.textContent = profInfo.description;
   dataPic.src = profInfo.pic;
@@ -35,7 +34,6 @@ function showProfInfo(profInfo) {
 }
 
 function showTech(technologies) {
-  console.log(technologies); // для проверки тут ожидаемый массив
   for (const technology of technologies) {
     dataTechnologies.innerHTML = dataTechnologies.innerHTML + `
     <span class="devicons devicons-${technology}"></span>
