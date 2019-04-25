@@ -38,7 +38,6 @@ function showData(data) {
     dataPic.style.background = `url(${data.pic})`;
     dataTitle.textContent = data.title;
     dataIngredients.textContent = data.ingredients.join(', ');
-    console.log(data);
   };
 
   if (data.rating) {
