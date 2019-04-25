@@ -1,14 +1,5 @@
 'use strict';
 
-const dataWallpaper = document.querySelector('.bio').firstElementChild;
-const dataUsername = document.querySelector('.desc').firstElementChild;
-const datadescription = document.querySelector('.desc').lastElementChild;
-const dataPic = document.querySelector('.avatarcontainer > .avatar');
-const contentData = document.querySelector('.content > .data');
-const dataTweets = contentData.querySelector('[data-tweets]');
-const dataFollowers = contentData.querySelector('[data-followers]');
-const dataFollowing = contentData.querySelector('[data-following]');
-
 function randName(max, min) {
   return `callback${Math.floor(Math.random() * (max - min)) + min}`;
 }
@@ -26,6 +17,15 @@ function loadData(url) {
 }
 
 function showData(data) {
+  const dataWallpaper = document.querySelector('.bio').firstElementChild;
+  const dataUsername = document.querySelector('.desc').firstElementChild;
+  const datadescription = document.querySelector('.desc').lastElementChild;
+  const dataPic = document.querySelector('.avatarcontainer > .avatar');
+  const contentData = document.querySelector('.content > .data');
+  const dataTweets = contentData.querySelector('[data-tweets]');
+  const dataFollowers = contentData.querySelector('[data-followers]');
+  const dataFollowing = contentData.querySelector('[data-following]');
+  
   dataWallpaper.src = data.wallpaper;
   dataUsername.textContent = data.username;
   datadescription.textContent = data.description;
