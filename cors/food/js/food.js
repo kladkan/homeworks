@@ -1,18 +1,10 @@
 'use strict';
-const food = document.querySelector('.food');
-const dataPic = food.querySelector('[data-pic]');
-const dataTitle = food.querySelector('[data-title]');
-const dataIngredients = food.querySelector('[data-ingredients]');
-const dataRating = food.querySelector('[data-rating]');
-const dataStar = food.querySelector('[data-star]');
-const dataVotes = food.querySelector('[data-votes]');
-const dataConsumers = food.querySelector('[data-consumers]');
 
 const baseUrl = 'https://neto-api.herokuapp.com/food';
 const getUrl = url => `${baseUrl}${url}`;
 const url = {
   recipe: getUrl('/42'),
-  rating : getUrl('/42/rating'),
+  rating: getUrl('/42/rating'),
   consumers: getUrl('/42/consumers')
 };
 
@@ -33,10 +25,20 @@ function loadData(url) {
 };
 
 function showData(data) {
+  const food = document.querySelector('.food');
+  const dataPic = food.querySelector('[data-pic]');
+  const dataTitle = food.querySelector('[data-title]');
+  const dataIngredients = food.querySelector('[data-ingredients]');
+  const dataRating = food.querySelector('[data-rating]');
+  const dataStar = food.querySelector('[data-star]');
+  const dataVotes = food.querySelector('[data-votes]');
+  const dataConsumers = food.querySelector('[data-consumers]');
+
   if (data.id) {
     dataPic.style.background = `url(${data.pic})`;
     dataTitle.textContent = data.title;
     dataIngredients.textContent = data.ingredients.join(', ');
+    console.log(data);
   };
 
   if (data.rating) {
@@ -58,7 +60,7 @@ function showData(data) {
 
 for (let key in url) {
   loadData(url[key])
-  .then(showData)
-  .catch(error => console.log(error));
+    .then(showData)
+    .catch(error => console.log(error));
 };
 
