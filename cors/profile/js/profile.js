@@ -1,12 +1,4 @@
 'use strict';
-const content = document.querySelector('.content');
-const profileinfo = content.querySelector('.profileinfo');
-
-const dataName = profileinfo.querySelector('[data-name]');
-const dataDescription = profileinfo.querySelector('[data-description]');
-const dataPic = content.querySelector('[data-pic]');
-const dataPosition = profileinfo.querySelector('[data-position]');
-const dataTechnologies = content.querySelector('[data-technologies]');
 
 function randName(max, min) {
   return `callback${Math.floor(Math.random() * (max - min)) + min}`;
@@ -25,21 +17,28 @@ function loadData(url) {
 };
 
 function showProfInfo(profInfo) {
+  const dataName = document.querySelector('[data-name]');
+  const dataDescription = document.querySelector('[data-description]');
+  const dataPic = document.querySelector('[data-pic]');
+  const dataPosition = document.querySelector('[data-position]');
+
   dataName.textContent = profInfo.name;
   dataDescription.textContent = profInfo.description;
   dataPic.src = profInfo.pic;
   dataPosition.textContent = profInfo.position;
-  const id = profInfo.id; // id тут = 90210 проверял
+  const id = profInfo.id;
   return id;
 };
 
 function showTech(technologies) {
+  const dataTechnologies = document.querySelector('[data-technologies]');
+
   for (const technology of technologies) {
     dataTechnologies.innerHTML = dataTechnologies.innerHTML + `
     <span class="devicons devicons-${technology}"></span>
     `;
   };
-  content.style.display = 'initial';
+  document.querySelector('.content').style.display = 'initial';
 };
 
 loadData('https://neto-api.herokuapp.com/profile/me')
