@@ -19,11 +19,12 @@ getStar();
 
 function getStar() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   for (let i = 0; i <= rand(200, 401); i++) {
     ctx.beginPath();
+    ctx.globalAlpha = rand(0, 11) / 10;
     ctx.arc(rand(0, canvas.width), rand(0, canvas.height), rand(0, 12) / 10, 0, 2 * Math.PI);
     ctx.fillStyle = `${starColor[rand(0, starColor.length)]}`;
     ctx.fill();
   }
 }
-
