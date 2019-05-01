@@ -8,10 +8,12 @@ function showComments(list) {
 */
 
 function showComments(list) {
+  const fragment = document.createDocumentFragment();
   const commentsContainer = document.querySelector('.comments');
   list.forEach(element => {
-    commentsContainer.appendChild(createCommentV2(element));
+    fragment.appendChild(createCommentV2(element));
   });
+  commentsContainer.appendChild(fragment);
 }
 function createCommentV2(comment) {
   const commentWrap = document.createElement('div');
@@ -53,7 +55,7 @@ function createCommentV2(comment) {
 
   return commentWrap;
 }
-
+/*
 function createComment(comment) {
   
   return `<div class="comment-wrap">
@@ -74,7 +76,7 @@ function createComment(comment) {
     </div>
   </div>`
 }
-
+*/
 fetch('https://neto-api.herokuapp.com/comments')
   .then(res => res.json())
   .then(showComments);
