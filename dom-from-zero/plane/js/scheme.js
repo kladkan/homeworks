@@ -190,33 +190,3 @@ function genRowElement(block) {
 
   return element;
 }
-
-/*
-<div class="row seating-row text-center">
-  <div class="col-xs-1 row-number">
-    <h2 class="">1</h2>
-  </div>
-  <div class="col-xs-5">
-    <div class="col-xs-4 seat">
-      <span class="seat-label">A</span>
-    </div>
-    <div class="col-xs-4 seat">
-      <span class="seat-label">B</span>
-    </div>
-    <div class="col-xs-4 seat">
-      <span class="seat-label">C</span>
-    </div>
-  </div>
-  <div class="col-xs-5">
-    <div class="col-xs-4 seat">
-      <span class="seat-label">D</span>
-    </div>
-    <div class="col-xs-4 seat">
-      <span class="seat-label">E</span>
-    </div>
-    <div class="col-xs-4 seat">
-      <span class="seat-label">F</span>
-    </div>
-  </div>
-</div>
-*/
