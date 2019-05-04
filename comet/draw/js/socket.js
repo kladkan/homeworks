@@ -7,5 +7,3 @@ editor.addEventListener('update', event => {
     ws.send(blob);
   });
 });
-
-
