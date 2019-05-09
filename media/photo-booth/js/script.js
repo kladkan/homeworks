@@ -8,6 +8,9 @@ let canvas = document.createElement('canvas'),
   errorMessage = document.getElementById('error-message'),
   list = document.querySelector('.list');
 
+const audio = document.createElement('audio');
+audio.src = './audio/click.mp3';
+
 controls.style.display = 'flex';
 
 document.querySelector('.app').appendChild(video);
@@ -31,20 +34,45 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 list.addEventListener('click', actions);
 
 function actions(event) {
-  if (event.target.classList.contains('material-icons')) {
-    console.log(event.target.parentElement.parentElement.previousElementSibling.clientWidth);
-    //const imgLink = event.target.parentElement.parentElement.firstElementChild.href;
-    //let miniCanvas = document.createElement('canvas');
-    canvas.width = event.target.parentElement.parentElement.previousElementSibling.clientWidth;
-    canvas.height = event.target.parentElement.parentElement.previousElementSibling.clientHeight;
-    ctx.drawImage(event.target.parentElement.parentElement.previousElementSibling, 0, 0);
-    console.log(canvas);
-    canvas.toBlob(blob => {
-      const formData = new FormData();
-      formData.append("image", blob);
-      sendPhoto('https://neto-api.herokuapp.com/photo-booth', formData);
-    })
+  if (event.target.innerText === 'file_download') {
+    deleteFigure(event);
   }
+
+  if (event.target.innerText === 'file_upload') {
+    console.log(event.target.parentElement.previousElementSibling.href);
+    const imgLink = event.target.parentElement.previousElementSibling.href;
+    const formData = new FormData();
+    formData.append("image", imgLink);
+    sendPhoto('https://neto-api.herokuapp.com/photo-booth', formData);
+    deleteFigure(event);
+
+    /*
+    console.log(event.target.parentElement.parentElement.previousElementSibling.clientWidth);
+      //const imgLink = event.target.parentElement.parentElement.firstElementChild.href;
+      //let miniCanvas = document.createElement('canvas');
+      canvas.width = event.target.parentElement.parentElement.previousElementSibling.clientWidth;
+      canvas.height = event.target.parentElement.parentElement.previousElementSibling.clientHeight;
+      ctx.drawImage(event.target.parentElement.parentElement.previousElementSibling, 0, 0);
+      console.log(canvas);
+      canvas.toBlob(blob => {
+        const formData = new FormData();
+        formData.append("image", blob);
+        sendPhoto('https://neto-api.herokuapp.com/photo-booth', formData);
+      });
+      deleteFigure(event);
+    };
+    */
+  }
+
+  if (event.target.innerText === 'delete') {
+    deleteFigure(event);
+  }
+
+}
+
+function deleteFigure(event) {
+  let figure = event.target.parentElement.parentElement.parentElement;
+  figure.parentElement.removeChild(figure);
 }
 
 //------
@@ -66,9 +94,9 @@ function sendPhoto(url, formData) {
 
 
 
-
-
 function getPhoto() {
+  audio.play();
+
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   ctx.drawImage(video, 0, 0);
