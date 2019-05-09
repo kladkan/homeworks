@@ -5,32 +5,39 @@
 --pupil-size — размер зрачка; Размер зрачка должен меняться в диапазоне от 1 до 3
 */
 const maxSize = 3,
-      minSize = 1;
+  minSize = 1;
 
-let currentSizeX,
-    currentSizeY;
-
+let currentSize,
+  minDimention, // минимальное расстояние до края браузера от глаза
+  dist; // расстояние от глаза до курсора
 
 const pupil = document.querySelector('.big-book__pupil');
 //pupil.style.setProperty('--pupil-size', 2);
 //pupil.style.setProperty('--pupil-x', '-30px');
 
 document.addEventListener('mousemove', (event) => {
-  currentSizeX = (Math.abs(document.body.clientWidth - pupil.getBoundingClientRect().x) - Math.abs(event.clientX - pupil.getBoundingClientRect().x)) /
-    Math.abs(document.body.clientWidth - pupil.getBoundingClientRect().x) *
-    (maxSize - minSize) + 1;
 
-  currentSizeY = (Math.abs(document.body.clientHeight - pupil.getBoundingClientRect().y) - Math.abs(event.clientY - pupil.getBoundingClientRect().y)) /
-    Math.abs(document.body.clientHeight - pupil.getBoundingClientRect().y) *
-    (maxSize - minSize) + 1;
+  if (pupil.getBoundingClientRect().x > pupil.getBoundingClientRect().y) {
+    minDimention = pupil.getBoundingClientRect().y;
+  } else {
+    minDimention = pupil.getBoundingClientRect().x;
+  }
 
-  pupil.style.setProperty('--pupil-size', (currentSizeX + currentSizeY) / 2);
+  dist = Math.sqrt(
+    Math.pow((event.clientX - pupil.getBoundingClientRect().x), 2) +
+    Math.pow((event.clientY - pupil.getBoundingClientRect().y), 2)
+  )
 
-  //console.log(event.clientX);
-  //console.log(event.clientX);
+  if (dist > minDimention) {
+    currentSize = minSize;
+  } else {
+    currentSize = (minDimention - dist) / minDimention * (maxSize - minSize) + 1;
+  }
+
+  pupil.style.setProperty('--pupil-size', currentSize);
+
 });
 
-/*
 console.log(document.body.clientWidth);
 
 console.log(pupil.getBoundingClientRect());
@@ -38,4 +45,4 @@ console.log(pupil.getBoundingClientRect());
 console.log(pupil.clientWidth);
 console.log(pupil.offsetWidth);
 console.log(pupil.getBoundingClientRect().width);
-*/
+
