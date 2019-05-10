@@ -1,7 +1,6 @@
 'use strict';
 
 function createElement(block) {
-  console.log(block);
   if ((block === undefined) || (block === null) || (block === false)) {
     return document.createTextNode('');
   }
