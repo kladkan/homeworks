@@ -1,48 +1,56 @@
 'use strict';
-/*
---pupil-x — смещение зрачка от центра по оси X;
---pupil-y — смещение зрачка от центра по оси Y;
---pupil-size — размер зрачка; Размер зрачка должен меняться в диапазоне от 1 до 3
-*/
+
 const maxSize = 3,
-  minSize = 1;
+  minSize = 1,
+  maxOffset = 30, // максимальное смещение зрачка
+  pupil = document.querySelector('.big-book__pupil');
 
-let currentSize,
+let currentSize, // текущий размер зрачка
   minDimention, // минимальное расстояние до края браузера от глаза
-  dist; // расстояние от глаза до курсора
+  dist, // расстояние от глаза до курсора
+  dX, // смещение от центра зрачка
+  dY, // смещение от центра зрачка
+  pupilX, // координата центра зрачка
+  pupilY; // координата центра зрачка
 
-const pupil = document.querySelector('.big-book__pupil');
-//pupil.style.setProperty('--pupil-size', 2);
-//pupil.style.setProperty('--pupil-x', '-30px');
+function calcPupilProperties(event) {
+  pupilX = pupil.getBoundingClientRect().x + pupil.getBoundingClientRect().width / 2;
+  pupilY = pupil.getBoundingClientRect().y + pupil.getBoundingClientRect().height / 2;
 
-document.addEventListener('mousemove', (event) => {
+  pupilX > pupilY ?
+    minDimention = pupilY :
+    minDimention = pupilX;
 
-  if (pupil.getBoundingClientRect().x > pupil.getBoundingClientRect().y) {
-    minDimention = pupil.getBoundingClientRect().y;
-  } else {
-    minDimention = pupil.getBoundingClientRect().x;
-  }
-
-  dist = Math.sqrt(
-    Math.pow((event.clientX - pupil.getBoundingClientRect().x), 2) +
-    Math.pow((event.clientY - pupil.getBoundingClientRect().y), 2)
+  dist = Math.sqrt( // считаем текущее растояние от зрачка до курсора
+    Math.pow((event.clientX - pupilX), 2) +
+    Math.pow((event.clientY - pupilY), 2)
   )
 
-  if (dist > minDimention) {
-    currentSize = minSize;
-  } else {
+  dist > minDimention ? currentSize = minSize :
     currentSize = (minDimention - dist) / minDimention * (maxSize - minSize) + 1;
-  }
 
   pupil.style.setProperty('--pupil-size', currentSize);
 
-});
+  // расчет смещения зрачка
+  dX = (event.clientX - pupilX) / minDimention * maxOffset;
+  dY = (event.clientY - pupilY) / minDimention * maxOffset;
+   
+  if (dX > 0 ) {
+    dX > maxOffset ? dX = maxOffset : dX = dX;
+  } else if (dX < 0) {
+    Math.abs(dX) > maxOffset ? dX = -maxOffset : dX = dX;
+  }
 
-console.log(document.body.clientWidth);
+  pupil.style.setProperty('--pupil-x', `${dX}px`); 
 
-console.log(pupil.getBoundingClientRect());
+  if (dY > 0 ) {
+    dY > maxOffset ? dY = maxOffset : dY = dY;
+  } else if (dY < 0) {
+    Math.abs(dY) > maxOffset ? dY = -maxOffset : dY = dY;
+  }
 
-console.log(pupil.clientWidth);
-console.log(pupil.offsetWidth);
-console.log(pupil.getBoundingClientRect().width);
+  pupil.style.setProperty('--pupil-y', `${dY}px`);
+  
+}
 
+document.addEventListener('mousemove', calcPupilProperties);
