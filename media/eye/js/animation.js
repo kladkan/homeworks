@@ -49,8 +49,7 @@ function calcPupilProperties(event) {
     Math.abs(dY) > maxOffset ? dY = -maxOffset : dY = dY;
   }
 
-  pupil.style.setProperty('--pupil-y', `${dY}px`);
-  
+  pupil.style.setProperty('--pupil-y', `${dY}px`); 
 }
 
 document.addEventListener('mousemove', calcPupilProperties);
