@@ -1,31 +1,25 @@
 'use strict';
-/*
-function showComments(list) {
-  const commentsContainer = document.querySelector('.comments');
-  const comments = list.map(createComment).join('');
-  commentsContainer.innerHTML += comments;
-}
-*/
 
 function showComments(list) {
-  const fragment = document.createDocumentFragment();
-  const commentsContainer = document.querySelector('.comments');
+  const fragment = document.createDocumentFragment(),
+        commentsContainer = document.querySelector('.comments');
   list.forEach(element => {
     fragment.appendChild(createCommentV2(element));
   });
   commentsContainer.appendChild(fragment);
 }
 function createCommentV2(comment) {
-  const commentWrap = document.createElement('div');
-  const photo = document.createElement('div');
-  const avatar = document.createElement('div');
-  const commentBlock = document.createElement('div');
-  const commentText = document.createElement('p');
-  const bottomComment = document.createElement('div');
-  const commentDate = document.createElement('div');
-  const commentActions = document.createElement('ul');
-  const complain = document.createElement('li');
-  const reply = document.createElement('li');
+  const commentWrap = document.createElement('div'),
+        photo = document.createElement('div'),
+        avatar = document.createElement('div'),
+        commentBlock = document.createElement('div'),
+        commentText = document.createElement('p'),
+        bottomComment = document.createElement('div'),
+        commentDate = document.createElement('div'),
+        commentActions = document.createElement('ul'),
+        complain = document.createElement('li'),
+        reply = document.createElement('li');
+
   commentWrap.classList.add('comment-wrap');
   photo.classList.add('photo');
   photo.title = comment.author.name;
@@ -55,29 +49,7 @@ function createCommentV2(comment) {
 
   return commentWrap;
 }
-/*
-function createComment(comment) {
-  
-  return `<div class="comment-wrap">
-    <div class="photo" title="${comment.author.name}">
-      <div class="avatar" style="background-image: url('${comment.author.pic}')"></div>
-    </div>
-    <div class="comment-block">
-      <p class="comment-text">
-        ${comment.text.split('\n').join('<br>')}
-      </p>
-      <div class="bottom-comment">
-        <div class="comment-date">${new Date(comment.date).toLocaleString('ru-Ru')}</div>
-        <ul class="comment-actions">
-          <li class="complain">Пожаловаться</li>
-          <li class="reply">Ответить</li>
-        </ul>
-      </div>
-    </div>
-  </div>`
-}
-*/
+
 fetch('https://neto-api.herokuapp.com/comments')
   .then(res => res.json())
   .then(showComments);
-
