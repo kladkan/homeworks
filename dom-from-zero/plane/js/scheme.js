@@ -20,7 +20,9 @@ formInline.addEventListener('click', (event) => {
   };
   if (event.target.id === 'btnSetFull') {
     for (const seat of seats) {
-      seat.classList.add('adult');
+      if (!seat.classList.contains('half')) {// не трогаю места которые уже заняты, хоть и за полцены
+        seat.classList.add('adult');
+      }
     };
 
     calcSeats();
@@ -78,6 +80,7 @@ function showScheme(airInfo) {
       } else {
         if (event.currentTarget.classList.contains('half')) {
           event.currentTarget.classList.remove('half');
+          event.currentTarget.classList.remove('adult');
         } else {
           if (event.currentTarget.classList.contains('adult')) {
             event.currentTarget.classList.remove('adult');
