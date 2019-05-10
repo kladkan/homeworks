@@ -62,7 +62,7 @@ function record(app) {
               chunks = null;
               recorder = stream = null;
               app.preview.srcObject = null;// отключаем предварительный просмотр с камеры
-              stream.getTracks().forEach(track => track.stop());// выключаем камеру
+              stream.getTracks().forEach(track => track.stop());// выключаем камеру по инструкци см. задание
 
               const res = {};
               res.video = recorded;
