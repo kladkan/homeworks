@@ -37,7 +37,6 @@ function createThumbnail(video) {
 }
 
 function record(app) {
-  console.log(app.config);
   return new Promise((done, fail) => {
     app.mode = 'preparing';
     navigator.mediaDevices.getUserMedia(app.config)
@@ -62,7 +61,7 @@ function record(app) {
               chunks = null;
               recorder = stream = null;
               app.preview.srcObject = null;// отключаем предварительный просмотр с камеры
-              stream.getTracks().forEach(track => track.stop());// выключаем камеру по инструкци см. задание
+              //stream.getTracks().forEach(track => track.stop());// выключаем камеру по инструкци см. задание
 
               const res = {};
               res.video = recorded;
