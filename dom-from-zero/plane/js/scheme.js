@@ -1,15 +1,13 @@
 'use strict'
 
-const formInline = document.querySelector('.form-inline');
-const formControl = document.querySelector('.form-control');
+const formInline = document.querySelector('.form-inline'),
+      formControl = document.querySelector('.form-control'),
+      baseUrl = 'https://neto-api.herokuapp.com/plane/',
+      seatMapTitle = document.getElementById('seatMapTitle'),
+      seatMapDiv = document.getElementById('seatMapDiv'),
+      btnSetFull = document.getElementById('btnSetFull'),
+      btnSetEmpty = document.getElementById('btnSetEmpty');
 
-const baseUrl = 'https://neto-api.herokuapp.com/plane/';
-
-const seatMapTitle = document.getElementById('seatMapTitle');
-const seatMapDiv = document.getElementById('seatMapDiv');
-const btnSetFull = document.getElementById('btnSetFull');
-const btnSetEmpty = document.getElementById('btnSetEmpty');
-//const seats = document.getElementsByClassName('.seat');
 let seats;
 
 btnSetFull.disabled = true;
@@ -18,42 +16,37 @@ btnSetEmpty.disabled = true;
 formInline.addEventListener('click', (event) => {
   event.preventDefault();
   if (event.target.id === 'btnSeatMap') {
-    //console.log(formControl.value);
     getScheme(`${baseUrl}${formControl.value}`)
-
-  }
+  };
   if (event.target.id === 'btnSetFull') {
-    //console.log(event.target);
     for (const seat of seats) {
-      //console.log(333);
       seat.classList.add('adult');
     };
 
     calcSeats();
-  }
+  };
+
   if (event.target.id === 'btnSetEmpty') {
-    //console.log(event.target);
     for (const seat of seats) {
-      //console.log(333);
       seat.classList.remove('adult');
       seat.classList.remove('half');
-    }
+    };
 
     calcSeats();
-  }
+  };
 });
 
 function calcSeats() {
-  const adultSeats = document.getElementsByClassName('adult').length;
-  const totalAdult = document.getElementById('totalAdult');
+  const adultSeats = document.getElementsByClassName('adult').length,
+        totalAdult = document.getElementById('totalAdult');
   totalAdult.textContent = adultSeats;
 
-  const halfSeats = document.getElementsByClassName('half').length;
-  const totalHalf = document.getElementById('totalHalf');
+  const halfSeats = document.getElementsByClassName('half').length,
+        totalHalf = document.getElementById('totalHalf');
   totalHalf.textContent = halfSeats;
 
-  const totalPaxSeats = adultSeats + halfSeats;
-  const totalPax = document.getElementById('totalPax');
+  const totalPaxSeats = adultSeats + halfSeats,
+        totalPax = document.getElementById('totalPax');
   totalPax.textContent = totalPaxSeats;
 }
 
@@ -102,7 +95,7 @@ function showScheme(airInfo) {
   }
 }
 
-function seatingRow(airInfo, i) {
+function seatingRow(airInfo, i) {// формируем объект с необходимой структурой тегов
   return {
     tag: 'div',
     cls: ['row', 'seating-row', 'text-center'],
@@ -158,7 +151,7 @@ function seatingRow(airInfo, i) {
   }
 }
 
-function genRowElement(block) {
+function genRowElement(block) {// принимает объект, строит и возвращает сформированный dom-элемент
   if ((block === undefined) || (block === null) || (block === false)) {
     return document.createTextNode('');
   }
@@ -179,7 +172,7 @@ function genRowElement(block) {
     if (!cls) return;
     element.classList.add(cls);
   });
-  //element.classList.add(...[].concat(block.cls).filter(Boolean));
+  //element.classList.add(...[].concat(block.cls).filter(Boolean)); это второй способ записи строки 178 (не удаляю)
   if (block.attrs) {
     Object.keys(block.attrs).forEach(key => {
       element.setAttribute(key, block.attrs[key]);
