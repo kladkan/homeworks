@@ -36,7 +36,7 @@ formInline.addEventListener('click', (event) => {
   };
 });
 
-function calcSeats() {
+function calcSeats() { // расчет количества мест
   const adultSeats = document.getElementsByClassName('adult').length,
         totalAdult = document.getElementById('totalAdult');
   totalAdult.textContent = adultSeats;
