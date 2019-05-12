@@ -60,7 +60,7 @@ function actions(event) {
         sendPhoto('https://neto-api.herokuapp.com/photo-booth', formData);
       });
       deleteFigure(event);
-    };
+    
     */
   }
 
