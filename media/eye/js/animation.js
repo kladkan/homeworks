@@ -32,8 +32,8 @@ function calcPupilProperties(event) {
   pupil.style.setProperty('--pupil-size', currentSize);
 
   // расчет смещения зрачка
-  dX = (event.clientX - pupilX) / dist * maxOffset;
-  dY = (event.clientY - pupilY) / dist * maxOffset;
+  dX = (event.clientX - pupilX) / minDimention * maxOffset;
+  dY = (event.clientY - pupilY) / minDimention * maxOffset;
    
   if (dX > 0 ) {
     dX > maxOffset ? dX = maxOffset : dX = dX;
