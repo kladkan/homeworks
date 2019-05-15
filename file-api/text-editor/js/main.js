@@ -32,7 +32,7 @@ class TextEditor {
   loadFile(e) {
     //e.preventDefault(); // перенес до вызова loadFile но не помогает (все равно, то срабаытвает то нет)
     const file = Array.from(e.dataTransfer.files);//получаем массив
-    this.hideHint(); // для скрытия стандартного сообщения
+    //this.hideHint(); // для скрытия стандартного сообщения
     if (file[0].name.split('.')[file[0].name.split('.').length - 1] === 'txt') {// проверяем расширение
       this.readFile(file[0]);
       this.setFilename(file[0].name);
