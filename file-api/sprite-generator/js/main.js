@@ -26,28 +26,33 @@ class SpriteGenerator {
   };
 
   loadFiles(e) {
-    for (let file of e.currentTarget.files) {
-      this.images.push(file);// заполняем массив файлами
+    for (let file of e.target.files) {
+      // фильтруем повторно выбранные файлы и не пропускаем их в массив
+      if (!this.images.find(image => image.name === file.name)) {
+        this.images.push(file);// заполняем массив файлами
+      }
     }
-    this.imagesCount = e.currentTarget.files.length;
+    this.imagesCount = this.images.length;
+    this.imagesCountContainer.textContent = this.imagesCount;
   };
 
   genSprite(e) { // после нажатия кнопки сгенерировать спрайт
+    
     this.context = this.canvas.getContext('2d');
-
+    
     for (let i = 0; i < this.imagesCount; i++) {
       this.tempImg = document.createElement('img'); //создаю временный элемент img для хранения текущей картинки из массива
-            
+
       this.tempImg.addEventListener('load', event => {// после загрузки помещаю текущую картинку на холст со смещение 50
-        this.context.drawImage(this.tempImg, 50 * i, 0, 50, 50);
+        this.context.drawImage(event.target, 50 * i, 0, 50, 50);
         URL.revokeObjectURL(event.target.src);
       });
 
       this.tempImg.src = URL.createObjectURL(this.images[i]); // устанавливаю адрес текущей картинки
-    }
+    };
 
     this.imageElement.src = this.canvas.toDataURL(); // вывожу содержимое холста
-    this.imagesCountContainer.textContent = this.imagesCount;
+    console.log(e.target);
   };
 };
 
