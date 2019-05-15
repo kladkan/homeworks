@@ -20,29 +20,20 @@ class TextEditor {
     const save = throttle(this.save.bind(this), 1000);
     this.contentContainer.addEventListener('input', save);
     //--------------
-    this.contentContainer.addEventListener('dragover', event => this.showHint.call(this, event)); //привязываю функцию showHint к контексту вызова
-    this.contentContainer.addEventListener('dragleave', this.hideHint.bind(this));
-    this.contentContainer.addEventListener('drop', event => {
-      event.preventDefault();
-      this.loadFile.call(this, event);
-    });
+    this.container.addEventListener('dragover', event => this.showHint.call(this, event)); //привязываю функцию showHint к контексту вызова
+    this.container.addEventListener('drop', event => this.loadFile.call(this, event));
     //------------------
-
   }
-  loadFile(e) {
-    //e.preventDefault(); // перенес до вызова loadFile но не помогает (все равно, то срабаытвает то нет)
-    const file = Array.from(e.dataTransfer.files);//получаем массив
-    //this.hideHint(); // для скрытия стандартного сообщения
-    if (file[0].name.split('.')[file[0].name.split('.').length - 1] === 'txt') {// проверяем расширение
-      this.readFile(file[0]);
-      this.setFilename(file[0].name);
-    } else {
-      //console.log('Файл должен быть с расширением txt');
-      this.hintContainer.firstElementChild.textContent = 'Файл должен быть с расширением txt' // как вернуть затем стандартное сообщение, может добавить еще одно событие dropend и там вернуть первоначальное сообщение
-      this.showHint(e);
-      
-    }
 
+  loadFile(e) {
+    e.preventDefault();
+    this.hideHint(); // для скрытия сообщения
+    if (Array.from(e.dataTransfer.files)[0].type === 'text/plain') {// проверяем тип
+      this.readFile(Array.from(e.dataTransfer.files)[0]);
+      this.setFilename(Array.from(e.dataTransfer.files)[0].name);
+    } else {
+      console.log('Файл должен быть с расширением txt');
+    }
   }
 
   readFile(file) {
