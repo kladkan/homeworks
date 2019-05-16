@@ -12,9 +12,12 @@ class SpriteGenerator {
 
     this.imagesCount = 0;
 
-    this.canvas = document.createElement('canvas');
+    
     this.context;
-    this.tempImg;
+    
+
+    this.fullCss;
+    this.cssForImgIcon;
 
     this.registerEvents();
   }
@@ -27,31 +30,46 @@ class SpriteGenerator {
 
   loadFiles(e) {
     for (let file of e.target.files) {
-      // фильтруем повторно выбранные файлы и не пропускаем их в массив
-      if (!this.images.find(image => image.name === file.name)) {
-        this.images.push(file);// заполняем массив файлами
-      }
+      const img = document.createElement('img');
+      img.width = 50;
+      img.height = 50;
+      img.src = URL.createObjectURL(file);
+      img.addEventListener('load', event => {
+        URL.revokeObjectURL(event.target.src);
+      });
+      this.images.push(img);
     }
     this.imagesCount = this.images.length;
     this.imagesCountContainer.textContent = this.imagesCount;
   };
 
-  genSprite(e) { // после нажатия кнопки сгенерировать спрайт
-    
-    this.context = this.canvas.getContext('2d');
-    
+  genSprite(e) { // формируем спрайт + css
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = this.images[0].width * this.imagesCount;
+    this.fullCss = `
+      .icon {
+        display: inline-block;
+        background-image: url(img/sprite.png);
+      }
+		`;
+    this.cssForImgIcon = '';
+
     for (let i = 0; i < this.imagesCount; i++) {
-      this.tempImg = document.createElement('img'); //создаю временный элемент img для хранения текущей картинки из массива
+      context.drawImage(this.images[i], this.images[i].width * i, 0, this.images[i].width, this.images[i].height);
 
-      this.tempImg.addEventListener('load', event => {// после загрузки помещаю текущую картинку на холст со смещение 50
-        this.context.drawImage(event.target, 50 * i, 0, 50, 50);
-        URL.revokeObjectURL(event.target.src);
-      });
-
-      this.tempImg.src = URL.createObjectURL(this.images[i]); // устанавливаю адрес текущей картинки
+      this.cssForImgIcon = this.cssForImgIcon + `
+	  		.icon_${i} {
+          background-position: ${-50 * i}px 0;
+          width: ${this.images[i].width}px;
+          height: ${this.images[i].height}px;
+        }
+		  `;
     };
 
-    this.imageElement.src = this.canvas.toDataURL(); // вывожу содержимое холста
+    this.codeContainer.value = this.fullCss + this.cssForImgIcon;
+
+    this.imageElement.src = canvas.toDataURL(); // вывожу содержимое холста
     console.log(e.target);
   };
 };
