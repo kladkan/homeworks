@@ -63,7 +63,6 @@ class SpriteGenerator {
     this.codeContainer.value = fullCss + cssForImgIcon;
 
     this.imageElement.src = canvas.toDataURL(); // вывожу содержимое холста
-    console.log(e.target);
   };
 };
 
