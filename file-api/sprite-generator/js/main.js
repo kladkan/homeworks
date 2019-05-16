@@ -12,13 +12,6 @@ class SpriteGenerator {
 
     this.imagesCount = 0;
 
-    
-    this.context;
-    
-
-    this.fullCss;
-    this.cssForImgIcon;
-
     this.registerEvents();
   }
 
@@ -47,18 +40,18 @@ class SpriteGenerator {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     canvas.width = this.images[0].width * this.imagesCount;
-    this.fullCss = `
+    const fullCss = `
       .icon {
         display: inline-block;
         background-image: url(img/sprite.png);
       }
 		`;
-    this.cssForImgIcon = '';
+    let cssForImgIcon = '';
 
     for (let i = 0; i < this.imagesCount; i++) {
       context.drawImage(this.images[i], this.images[i].width * i, 0, this.images[i].width, this.images[i].height);
 
-      this.cssForImgIcon = this.cssForImgIcon + `
+      cssForImgIcon = cssForImgIcon + `
 	  		.icon_${i} {
           background-position: ${-50 * i}px 0;
           width: ${this.images[i].width}px;
@@ -67,7 +60,7 @@ class SpriteGenerator {
 		  `;
     };
 
-    this.codeContainer.value = this.fullCss + this.cssForImgIcon;
+    this.codeContainer.value = fullCss + cssForImgIcon;
 
     this.imageElement.src = canvas.toDataURL(); // вывожу содержимое холста
     console.log(e.target);
