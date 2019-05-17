@@ -30,9 +30,14 @@ const drop = event => {
     const trashBin = document
       .elementFromPoint(event.clientX, event.clientY)
       .closest('#trash_bin');
+    console.log(trashBin);
+    muvedLogo.style.visibility = 'visible';
     if (trashBin) {
       muvedLogo.classList.remove('moving');
       muvedLogo.style.display = 'none';
+      muvedLogo = null;
+    } else {
+      muvedLogo.classList.remove('moving');
       muvedLogo = null;
     };
   };
