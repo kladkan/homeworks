@@ -94,7 +94,6 @@ class iLayout {
     finalImg.src = canvas.toDataURL();
 
     this.result.innerText = `<img src='${finalImg.src}'>`;
-    this.positionsContainer.appendChild(finalImg);
   }
 }
 
