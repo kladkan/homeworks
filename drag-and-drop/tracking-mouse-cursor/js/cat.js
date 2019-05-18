@@ -18,7 +18,7 @@ const eyeRadius = leftEye.getBoundingClientRect().width / 2,// радиус гл
   leftEyeY = leftEye.getBoundingClientRect().y + eyeRadius,
 
   // координаты правого глаза
-  rightEyeX = rightEye.getBoundingClientRect().x + eyeRadius, // крорректировать
+  rightEyeX = rightEye.getBoundingClientRect().x + eyeRadius,
   rightEyeY = rightEye.getBoundingClientRect().y + eyeRadius;
 
 const movePupil = throttle((x, y) => {// x и y - текущие координаты корсора относительно экрана
