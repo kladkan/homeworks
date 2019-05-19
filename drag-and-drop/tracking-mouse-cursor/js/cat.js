@@ -6,13 +6,17 @@ let leftEye = document.querySelector('.cat_position_for_left_eye'), //левый
 
   rightEye = document.querySelector('.cat_position_for_right_eye'), //правый глаз
   rightPupil = document.querySelector('.cat_eye_right'),// зрачок правого глаза
-  distToRightEye;// растояние от центра правого глаза до курсора
-
+  distToRightEye,// растояние от центра правого глаза до курсора
+  leftEyeX,
+  leftEyeY,
+  rightEyeX,
+  rightEyeY;
 
 const eyeRadius = leftEye.getBoundingClientRect().width / 2,// радиус глаза
   pupilRadius = leftPupil.getBoundingClientRect().width / 2,// радиус зрачка
-  radius = eyeRadius - pupilRadius,// максимальное смещение зрачка от центра глаза
+  radius = eyeRadius - pupilRadius;// максимальное смещение зрачка от центра глаза
 
+function calcEyesCoord() {
   // координаты центра левого глаза
   leftEyeX = leftEye.getBoundingClientRect().x + eyeRadius,
   leftEyeY = leftEye.getBoundingClientRect().y + eyeRadius,
@@ -20,6 +24,9 @@ const eyeRadius = leftEye.getBoundingClientRect().width / 2,// радиус гл
   // координаты правого глаза
   rightEyeX = rightEye.getBoundingClientRect().x + eyeRadius,
   rightEyeY = rightEye.getBoundingClientRect().y + eyeRadius;
+}
+
+calcEyesCoord();
 
 const movePupil = throttle((x, y) => {// x и y - текущие координаты корсора относительно экрана
   distToLeftEye = Math.sqrt( // считаем текущее растояние от центра левого глаза до курсора
@@ -50,6 +57,9 @@ const movePupil = throttle((x, y) => {// x и y - текущие координ�
 });
 
 document.addEventListener('mousemove', event => movePupil(event.clientX, event.clientY));
+window.addEventListener('resize', (event) => {// при изменении размеров экрана пересчитывает координаты глаз
+  calcEyesCoord();
+});
 
 function throttle(callback) {
   let isWaiting = false;
